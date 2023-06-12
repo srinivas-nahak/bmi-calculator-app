@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:bmi_calculator/constants.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BottomButton extends StatelessWidget {
-  const BottomButton({required this.onPress, required this.btnText});
+  const BottomButton({required this.onPress, required this.btnText, super.key});
 
   final VoidCallback onPress;
   final String btnText;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Center(
-        child: Container(
-          alignment: Alignment.center,
-          height: 80,
-          width: double.infinity,
-          color: kBottomContainerColor,
-          child: Text(
-            btnText,
-            style: TextStyle(fontSize: 20),
+    return Material(
+      color: kBottomContainerColor,
+      child: InkWell(
+        onTap: onPress,
+        child: Center(
+          child: Container(
+            color: Colors.transparent,
+            alignment: Alignment.center,
+            height: 8.h,
+            width: double.infinity,
+            child: Text(
+              btnText,
+              style: TextStyle(color: kPrimaryTxtColor, fontSize: 20.sp),
+            ),
           ),
         ),
       ),
