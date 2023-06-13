@@ -1,5 +1,7 @@
 ![Bmi_App_Header](https://github.com/srinivas-nahak/bmi-calculator-app/assets/24781014/b5648eed-7c4c-4829-ba70-a6d3d1e72426)
 
+
+## Description
 A responsive cross-platform Bmi Calculator app that calculates your Body Mass Index. It is made with Flutter, Material Design 3 using the recommended <a href="https://docs.flutter.dev/resources/architectural-overview">Flutter Architecture Guidelines</a>.
 
 ## Screenshots
