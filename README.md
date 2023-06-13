@@ -20,11 +20,9 @@ https://github.com/srinivas-nahak/bmi-calculator-app/assets/24781014/0b057069-ed
 
 
 ## Features
-- [x] Adds medications with its duration and daily dosage.
-- [x] Displays a list of medications to take daily.
-- [ ] Reminds when it's time to take medication with notifications.
-- [ ] Shows history of dosage taken.
-- [ ] Shows medications in a calendar view.
+- [x] Lets the user add their gender, height, weight, and age.
+- [x] Shows you your BMI along with a message
+- [x] Adapts the UI according to the screen size.
 
 ## Contributions
 
