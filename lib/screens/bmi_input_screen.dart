@@ -12,46 +12,91 @@ import '../widgets/bottom_button.dart';
 
 enum Gender { male, female }
 
+enum ButtonType { weight, age }
+
 class BmiInputScreen extends StatefulWidget {
   const BmiInputScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => BmiInputScreenState();
+  State<BmiInputScreen> createState() => BmiInputScreenState();
 }
 
 class BmiInputScreenState extends State<BmiInputScreen> {
-  Color maleCardColor = kActiveCardColor;
-  Color femaleCardColor = kActiveCardColor;
-  Color maleIconColor = kPrimaryTxtColor;
-  Color femaleIconColor = kPrimaryTxtColor;
+  Color _maleCardColor = kActiveCardColor,
+      _femaleCardColor = kActiveCardColor,
+      _maleIconColor = kPrimaryTxtColor,
+      _femaleIconColor = kPrimaryTxtColor;
 
-  int userHeight = 120;
-  int userWeight = 80;
-  int userAge = 19;
-  int maleFlexValue = 1;
-  int femaleFlexValue = 1;
+  int _userHeight = 120,
+      _userWeight = 70,
+      _userAge = 19,
+      _maleFlexValue = 1,
+      _femaleFlexValue = 1;
+
+  bool _isPressed = false;
 
   void updateColor(Gender genderType) {
     if (genderType == Gender.male) {
       //Changing All colors
-      maleCardColor = kActiveCardColor;
-      femaleCardColor = kInactiveCardColor;
-      maleIconColor = kPrimaryTxtColor;
-      femaleIconColor = kSecondaryTxtColor;
+      _maleCardColor = kActiveCardColor;
+      _femaleCardColor = kInactiveCardColor;
+      _maleIconColor = kPrimaryTxtColor;
+      _femaleIconColor = kSecondaryTxtColor;
 
       //Changing the box size
-      maleFlexValue = 2;
-      femaleFlexValue = 1;
+      _maleFlexValue = 2;
+      _femaleFlexValue = 1;
     } else {
       //Changing All colors
-      femaleCardColor = kActiveCardColor;
-      maleCardColor = kInactiveCardColor;
-      femaleIconColor = kPrimaryTxtColor;
-      maleIconColor = kSecondaryTxtColor;
+      _femaleCardColor = kActiveCardColor;
+      _maleCardColor = kInactiveCardColor;
+      _femaleIconColor = kPrimaryTxtColor;
+      _maleIconColor = kSecondaryTxtColor;
 
       //Changing the box Size
-      femaleFlexValue = 2;
-      maleFlexValue = 1;
+      _femaleFlexValue = 2;
+      _maleFlexValue = 1;
+    }
+  }
+
+  void continuousClick(
+      {bool increment = false, ButtonType btnType = ButtonType.weight}) async {
+    _isPressed = true;
+
+    if (increment) {
+      while (_isPressed) {
+        setState(() {
+          //Checking the button type and incrementing the appropriate counter
+          switch (btnType) {
+            case ButtonType.weight:
+              if (_userWeight >= 0) _userWeight++;
+              break;
+            case ButtonType.age:
+              if (_userAge >= 0) _userAge++;
+              break;
+          }
+        });
+
+        //Adding delay to avoid the UI from freezing
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
+    } else {
+      while (_isPressed) {
+        setState(() {
+          //Checking the button type and incrementing the appropriate counter
+          switch (btnType) {
+            case ButtonType.weight:
+              if (_userWeight > 0) _userWeight--;
+              break;
+            case ButtonType.age:
+              if (_userAge > 0) _userAge--;
+              break;
+          }
+        });
+
+        //Adding delay to avoid the UI from freezing
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
     }
   }
 
@@ -72,13 +117,13 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: maleFlexValue,
+                              flex: _maleFlexValue,
                               child: ReusableCard(
-                                givenColor: maleCardColor,
+                                givenColor: _maleCardColor,
                                 cardChild: IconContent(
                                     genderIcon: FontAwesomeIcons.mars,
                                     genderType: "Male",
-                                    iconColor: maleIconColor),
+                                    iconColor: _maleIconColor),
                                 onPress: () {
                                   setState(() {
                                     updateColor(Gender.male);
@@ -87,13 +132,13 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                               ),
                             ),
                             Expanded(
-                              flex: femaleFlexValue,
+                              flex: _femaleFlexValue,
                               child: ReusableCard(
-                                givenColor: femaleCardColor,
+                                givenColor: _femaleCardColor,
                                 cardChild: IconContent(
                                   genderIcon: FontAwesomeIcons.venus,
                                   genderType: "Female",
-                                  iconColor: femaleIconColor,
+                                  iconColor: _femaleIconColor,
                                 ),
                                 onPress: () {
                                   setState(() {
@@ -124,7 +169,7 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.baseline,
                                 textBaseline: TextBaseline.alphabetic,
                                 children: [
-                                  Text(userHeight.toString(),
+                                  Text(_userHeight.toString(),
                                       style: kBoldTextStyle),
                                   Text("cm", style: kSmallBoldTextStyle),
                                 ],
@@ -134,13 +179,13 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                                 child: SliderTheme(
                                   data: getSliderThemeData(context),
                                   child: Slider(
-                                    value: userHeight.toDouble(),
+                                    value: _userHeight.toDouble(),
                                     min: 120,
                                     max: 220,
                                     //divisions: 40,
                                     onChanged: (double value) {
                                       setState(() {
-                                        userHeight = value.round();
+                                        _userHeight = value.round();
                                       });
                                     },
                                   ),
@@ -172,7 +217,7 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                                       child: Align(
                                         alignment: Alignment.bottomCenter,
                                         child: Text(
-                                          userWeight.toString(),
+                                          _userWeight.toString(),
                                           style: kBoldTextStyle,
                                         ),
                                       ),
@@ -184,26 +229,23 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                                         children: [
                                           RoundIconButton(
                                             icon: Icons.remove,
-                                            onPressed: () {
-                                              setState(() {
-                                                if (userWeight > 0) {
-                                                  userWeight--;
-                                                }
-                                              });
-                                            },
+                                            onLongPressStart: (_) =>
+                                                continuousClick(
+                                                    btnType: ButtonType.weight),
+                                            onLongPressStop: (_) => setState(
+                                                () => _isPressed = false),
                                           ),
                                           SizedBox(
                                             width: 3.w,
                                           ),
                                           RoundIconButton(
                                             icon: Icons.add,
-                                            onPressed: () {
-                                              setState(() {
-                                                if (userWeight >= 0) {
-                                                  userWeight++;
-                                                }
-                                              });
-                                            },
+                                            onLongPressStart: (_) =>
+                                                continuousClick(
+                                                    increment: true,
+                                                    btnType: ButtonType.weight),
+                                            onLongPressStop: (_) => setState(
+                                                () => _isPressed = false),
                                           ),
                                         ],
                                       ),
@@ -230,7 +272,7 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                                       child: Align(
                                         alignment: Alignment.bottomCenter,
                                         child: Text(
-                                          userAge.toString(),
+                                          _userAge.toString(),
                                           style: kBoldTextStyle,
                                         ),
                                       ),
@@ -242,22 +284,23 @@ class BmiInputScreenState extends State<BmiInputScreen> {
                                         children: [
                                           RoundIconButton(
                                             icon: Icons.remove,
-                                            onPressed: () {
-                                              setState(() {
-                                                if (userAge > 0) userAge--;
-                                              });
-                                            },
+                                            onLongPressStart: (_) =>
+                                                continuousClick(
+                                                    btnType: ButtonType.age),
+                                            onLongPressStop: (_) => setState(
+                                                () => _isPressed = false),
                                           ),
                                           SizedBox(
                                             width: 2.w,
                                           ),
                                           RoundIconButton(
                                             icon: Icons.add,
-                                            onPressed: () {
-                                              setState(() {
-                                                if (userAge >= 0) userAge++;
-                                              });
-                                            },
+                                            onLongPressStart: (_) =>
+                                                continuousClick(
+                                                    increment: true,
+                                                    btnType: ButtonType.age),
+                                            onLongPressStop: (_) => setState(
+                                                () => _isPressed = false),
                                           ),
                                         ],
                                       ),
@@ -283,7 +326,7 @@ class BmiInputScreenState extends State<BmiInputScreen> {
       );
 
   void _showResults() {
-    BmiBrain bmiBrain = BmiBrain(weight: userWeight, height: userHeight);
+    BmiBrain bmiBrain = BmiBrain(weight: _userWeight, height: _userHeight);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -298,61 +341,3 @@ class BmiInputScreenState extends State<BmiInputScreen> {
     );
   }
 }
-
-// Expanded(
-// child: ReusableCard(
-// cardChild: Column(
-// children: [
-// SizedBox(
-// height: 1.h,
-// ),
-// Expanded(
-// child: Center(
-// child: Text(
-// "Weight",
-// style: kTextStyle,
-// ),
-// ),
-// ),
-// Expanded(
-// child: Text(
-// userWeight.toString(),
-// style: kBoldTextStyle,
-// ),
-// ),
-// Expanded(
-// flex: 2,
-// child: Row(
-// mainAxisAlignment:
-// MainAxisAlignment.center,
-// children: [
-// RoundIconButton(
-// icon: Icons.remove,
-// onPressed: () {
-// setState(() {
-// if (userWeight > 0) {
-// userWeight--;
-// }
-// });
-// },
-// ),
-// SizedBox(
-// width: 3.w,
-// ),
-// RoundIconButton(
-// icon: Icons.add,
-// onPressed: () {
-// setState(() {
-// if (userWeight >= 0) {
-// userWeight++;
-// }
-// });
-// },
-// ),
-// ],
-// ),
-// ),
-// ],
-// ),
-// ),
-// )
