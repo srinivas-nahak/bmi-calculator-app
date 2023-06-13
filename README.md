@@ -1,7 +1,3 @@
-# bmi_calculator
-
-BMI calculator project
-
 ![Bmi_App_Header](https://github.com/srinivas-nahak/bmi-calculator-app/assets/24781014/b5648eed-7c4c-4829-ba70-a6d3d1e72426)
 
 
