@@ -6,7 +6,8 @@ A responsive cross-platform Bmi Calculator app that calculates your Body Mass In
 
 ## Screenshots
 
-<p align="center"> <img src="docs/screenshots/Home.png" width="250"/>  <img src="docs/screenshots/AddMedication.png" width="250"/>  <img src="docs/screenshots/MedicationConfirm.png" width="250" /></p>
+![Bmi_App_Body_Multiple_Screens-compressed](https://github.com/srinivas-nahak/bmi-calculator-app/assets/24781014/d90ad1c6-6dcb-4265-b625-511f2f412170)
+
 
 
 ## Demo
