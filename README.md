@@ -31,4 +31,4 @@ Patches are encouraged and may be submitted by forking this project and submitti
 Bmi App is distributed under the terms of the MIT License. See the
 [license](LICENSE) for more information.
 
-UI inspiration has been taken from [dribble](https://dribbble.com/shots/4585382-Simple-BMI-Calculator/attachments/4585382?mode=media)https://dribbble.com/shots/4585382-Simple-BMI-Calculator/attachments/4585382?mode=media.
+UI inspiration has been taken from [dribble](https://dribbble.com/shots/4585382-Simple-BMI-Calculator/attachments/4585382?mode=media).
