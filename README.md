@@ -20,11 +20,6 @@ https://github.com/srinivas-nahak/bmi-calculator-app/assets/24781014/0b057069-ed
 - [x] Shows you your BMI along with a message
 - [x] Adapts the UI according to the screen size.
 
-## Contributions
-
-If you've found an error in the project, please file an issue.
-
-Patches are encouraged and may be submitted by forking this project and submitting a pull request. 
 
 ## License
 
